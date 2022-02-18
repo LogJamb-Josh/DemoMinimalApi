@@ -11,10 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Dependency Inject the DbContext.  InMemoryDatabase.
-builder.Services.AddDbContext<MyContext>(options => options.UseInMemoryDatabase("Test"));
+builder.Services.AddDbContext<DbContextOrder>(options => options.UseInMemoryDatabase("Test"));
 
 //Dependency Inject the Service
-builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<ServiceOrder>();
 
 //Build the app
 var app = builder.Build();
@@ -32,32 +32,32 @@ app.UseHttpsRedirection();
 
 
 //Add the endpoints
-app.MapGet("/Customers", async (OrderService serviceOrder) =>
+app.MapGet("/Customers", async (ServiceOrder s) =>
 {
-    return await serviceOrder.GetCustomersAsync();
+    return await s.GetCustomersAsync();
 });
 
-app.MapGet("/Customer/{id}", async (int id, OrderService serviceOrder) =>
+app.MapGet("/Customer/{id}", async (int id, ServiceOrder s) =>
 {
-    return await serviceOrder.GetCustomerAsync(id);
+    return await s.GetCustomerAsync(id);
 });
 
 //Insert
-app.MapPost("/Customer", async (Customer customer, OrderService serviceOrder) =>
+app.MapPost("/Customer", async (Customer customer, ServiceOrder s) =>
 {
-    return await serviceOrder.InsertCustomerAsync(customer);
+    return await s.InsertCustomerAsync(customer);
 });
 
 //Update
-app.MapPut("/Customer/{id}", async (Customer customer, OrderService serviceOrder) =>
+app.MapPut("/Customer/{id}", async (Customer customer, ServiceOrder s) =>
 {
-    return await serviceOrder.UpdateCustomer(customer);
+    return await s.UpdateCustomer(customer);
 });
 
 //Delete
-app.MapDelete("/Customer/{id}", async (int id, OrderService serviceOrder) =>
+app.MapDelete("/Customer/{id}", async (int id, ServiceOrder s) =>
 {
-    return await serviceOrder.DeleteCustomerAsync(id);
+    return await s.DeleteCustomerAsync(id);
 });
 
 

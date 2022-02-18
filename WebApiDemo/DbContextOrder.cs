@@ -3,9 +3,9 @@ using WebApiDemo.Entities;
 
 namespace WebApiDemo
 {
-    public class MyContext : DbContext
+    public class DbContextOrder : DbContext
     {
-        public MyContext(DbContextOptions<MyContext> options) : base(options)        
+        public DbContextOrder(DbContextOptions<DbContextOrder> options) : base(options)        
         {
         
         }
